@@ -21,7 +21,7 @@ class CreateCartsTable extends Migration
             $table->string('tax');
             $table->decimal('regular_price');
             $table->decimal('sale_price')->nullable();
-            $table->enum('stock_state', ['instock', 'outofstock']);
+          //  $table->enum('stock_state', ['instock', 'outofstock']);
             $table->integer('quantity')->default(10);
             $table->decimal('total');
             $table->string('image')->nullable();
