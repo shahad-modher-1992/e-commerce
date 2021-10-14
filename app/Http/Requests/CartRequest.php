@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CartRequest extends FormRequest
 {
@@ -23,14 +25,43 @@ class CartRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'sale_price' => 'required',
-            'stock_state' => 'required',
-            'regular_price'=> 'required',
-            'quantity' => 'required',
-            'total' => 'required',
-            'image' => 'required,'
+       $rules = [
+            'id' => 'required|numeric',
+            'name'    =>['required',
+            Rule::exists('products','name')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+            'sale_price'    =>['required',
+            Rule::exists('products','sale_price')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+            'regular_price'    =>['required',
+            Rule::exists('products','regular_price')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+            'quantity'    =>['required',
+            Rule::exists('products','quantity')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+            'image'    =>['required',
+            Rule::exists('products','image')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+            'product_id'    =>['required',
+            Rule::exists('products','id')->where(function ($query) {
+                $query->where('id', $this->id);
+            })
+        ],
+        'tax'=>'required|numeric',
+        'total' => 'required|numeric',
+            'user_id'=> 'required|numeric',
         ];
+
+        return $rules;
     }
 }

@@ -13,9 +13,7 @@ class CartController extends Controller
     public function store(Request $request) {
        
      $product = Product::findOrFail($request->product_id);   
- // dd($product->id);
-     $taxsum = $product->taxes->sum('percentage');
-   
+     $taxsum = $product->taxes->sum('percentage');  
      if(Cart::where('product_id', $product->id)->where('user_id' , '=', Auth::user()->id)->count() == 0  && Cart::where('user_id', '=', Auth::user()->id)->count() >= 0){
             Cart::create([
                 'name'           =>      $product->name,

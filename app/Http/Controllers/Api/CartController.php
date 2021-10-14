@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CartRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -35,7 +39,24 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::findOrFail($request->id);  
+        // dd($product) ;
+        $taxsum = $product->taxes->sum('percentage');
+ 
+        
+        $carts =  Cart::create([
+            'name'           =>      $product->name,
+            'product_id'     =>      $product->id,
+            'sale_price'     =>      $product->sale_price,
+            'regular_price'  =>      $product->regular_price,
+            'tax'            =>      $taxsum,
+            'quantity'       =>      $product->quantity,
+            'total'          =>      $product->regular_price * $product->quantity,
+            'image'          =>      $product->image,
+            'user_id'        =>      2,
+
+        ]); 
+        return response()->json($carts);
     }
 
     /**

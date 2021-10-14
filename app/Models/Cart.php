@@ -21,7 +21,7 @@ class Cart extends Model
         'total',
         'regular_price',
         'sale_price',
-        'stock_state',
+        // 'stock_state',
         'quantity',
         'image',
         'user_id',

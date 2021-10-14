@@ -9,7 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CatigoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CountryController;
-use App\Http\Controllers\CouponController;
+// use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SaleController;
@@ -126,18 +126,18 @@ Route::get("/admin/sale", [SaleController::class, 'index'])->name('admin.sale');
 Route::post('/admin/sale/update', [SaleController::class, 'update']);
 
 //admin coupons
-Route::get('/admin/coupon', [CouponController::class, 'index'])->name('coupon');
+// Route::get('/admin/coupon', [CouponController::class, 'index'])->name('coupon');
 
-//admin add coupons
-Route::get('/admin/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
-Route::post('/admin/coupon/store', [CouponController::class, 'store'])->name('coupon.store');
+// //admin add coupons
+// Route::get('/admin/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
+// Route::post('/admin/coupon/store', [CouponController::class, 'store'])->name('coupon.store');
 
-//admin edit coupons
-Route::get('/admin/coupon/edit/{id}', [CouponController::class ,'edit'])->name('coupon.edit');
-Route::post('/admin/coupon/update/{id}', [CouponController::class ,'update'])->name('coupon.update');
+// //admin edit coupons
+// Route::get('/admin/coupon/edit/{id}', [CouponController::class ,'edit'])->name('coupon.edit');
+// Route::post('/admin/coupon/update/{id}', [CouponController::class ,'update'])->name('coupon.update');
 
 //admin delete coupon
-Route::get('/admin/coupon/delete/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
+// Route::get('/admin/coupon/delete/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
 
 //admin show countries 
 Route::get('/admin/country/show', [CountryController::class, 'show'])->name('country.show');
