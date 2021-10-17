@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
@@ -25,4 +26,6 @@ Route::group(['middleware'=> 'api'], function() {
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);
     Route::resource('cart', CartController::class);
+    Route::resource('user', AuthController::class);
+    Route::post('login', [AuthController::class , 'login']);
 });

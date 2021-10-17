@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
@@ -35,7 +42,8 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->all()); 
+        return response()->json($user);
     }
 
     /**
@@ -81,5 +89,21 @@ class AuthController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function login(Request $request) {
+        // $user = User::get();
+        $credential = $request->only(['email', 'password']);
+        $token = Auth::attempt($credential);
+
+      if(!$token) {
+          return "this is not right data ";
+      }else {
+
+        $login = Auth::user();
+        $login->api_token = $token;
+      return $this->respondWithToken($token);
+      }
     }
 }

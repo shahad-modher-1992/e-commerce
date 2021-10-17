@@ -30,6 +30,10 @@ class OrderRequest extends FormRequest
             'status'=>'required',
             'payment_method'=>'required',
             'address'=>'required',
+
+            'carts' => 'array',
+            'carts.*.cart_id'=> 'required', Rule::exists('carts', 'id'),
+            'carts.*.qty'=> 'required', Rule::exists('carts', 'qty'),
             // 'carts'=>'required|array',
             // 'qty'=> Rule::exists('carts','quantity'),
         ];

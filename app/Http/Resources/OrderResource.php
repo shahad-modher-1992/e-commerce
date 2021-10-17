@@ -21,6 +21,8 @@ class OrderResource extends JsonResource
             'phone'=> $this->phone,
             'payment_method'=> $this->payment_method,
             'status'=> $this->status,
+            'carts' => CartResource::collection($this->cart)
+            
         ];
     }
 }
