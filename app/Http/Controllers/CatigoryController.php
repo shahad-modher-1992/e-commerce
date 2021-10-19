@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CatigoryRequest;
+use App\Models\Brand;
 use session;
 use App\Models\Catigory;
+use App\Models\Color;
 use Illuminate\Http\Request;
 
 class CatigoryController extends Controller
@@ -15,9 +17,11 @@ class CatigoryController extends Controller
     }
     public function cats($id){
         $cat = Catigory::findorFail($id);
-        $cats = Catigory::get();
+        $cats = Catigory::paginate(5);
+        $brands = Brand::paginate(5);
+        $colors = Color::paginate(5);
         $products = $cat->products;
-        return view('catigory', compact('cat', 'cats', 'products'));
+        return view('catigory', compact('cat', 'cats', 'products', 'brands', 'colors'));
        }
  
        public function admincats() {

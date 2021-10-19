@@ -1,5 +1,6 @@
 <div class="wrap-search center-section">
-        <form action="{{ route("shop.search")}}" method="GET">
+        <form action="{{ route("shop.search")}}" method="POST">
+            @csrf
            
 <div class="col-md-10">
 

@@ -27,8 +27,8 @@ class SearchLivewire extends Component
     public function render()
     {
         $brands = Brand::paginate(5);
-        $cats = Catigory::get();
-        $colors = Color::get();
+        $cats = Catigory::paginate(5);
+        $colors = Color::paginate(5);
         if($this->sorting =='date') {
             $products = Product::where('name', 'LIKE', $this->search . '%')->where('catigory_id', '=', $this->cat)->orderBy('created_at', 'desc')->paginate($this->pagesize);
         }

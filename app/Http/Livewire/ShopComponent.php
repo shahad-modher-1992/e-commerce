@@ -46,7 +46,7 @@ class ShopComponent extends Component
     public function render()
     { 
         $brands = Brand::paginate(5);
-        $cats = Catigory::get();
+        $cats = Catigory::paginate(5);
         $colors = Color::paginate(5);
 
        if($this->sorting =='date') {

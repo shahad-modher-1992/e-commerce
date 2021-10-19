@@ -10,7 +10,6 @@ use App\Models\Color;
 
 class BrandLivewire extends Component
 {
-    public $brand;
     public $color;
     public $brand_id;
     public $sorting;
@@ -19,14 +18,14 @@ class BrandLivewire extends Component
     protected $listeners = ['refreshBrand'=> '$refresh'];
 
     public function mount() {
-        $this->fill(request()->only('brand', 'brand_id') );
+        $this->fill(request()->only('brand_id') );
         $this->sorting = 'defualt';
         $this->pagesize = 8;
     }
     public function render()
     {
         $brands = Brand::paginate(5);
-        $cats = Catigory::get();
+        $cats = Catigory::paginate(5);
         $colors = Color::paginate(5);
         $brand =  Brand::where('id', '=', $this->brand_id)->first();  
 

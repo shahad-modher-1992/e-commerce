@@ -150,6 +150,8 @@
                        
                     </div>
                 </div>
+                {{ $cats->links() }}
+
                 <!-- Categories widget-->
 
                 <div class="widget mercado-widget filter-widget brand-widget">
@@ -157,9 +159,9 @@
                     <div class="widget-content ">
                         
                                  @foreach ($brands as $brand )
-                                 <form action="{{ route("shop.brand") }}" method="GET">
+                                 <form action="{{ route("shop.brand") }}" method="POST">
+                                    @csrf
                                     <input type="hidden" name="brand_id" value="{{ $brand->id }}">
-                                   <input type="hidden"   name="brand"  value="{{ $brand->id }}">
                                 <button class="btn border-0">{{ $brand->name }}</button>
                                 </form>
                                  <br>
@@ -174,9 +176,9 @@
                         <ul class="list-style vertical-list has-count-index">
                             @foreach ($colors as  $color)
 
-                            <form action="{{ route("shop.color") }}" method="GET">
+                            <form action="{{ route("shop.color") }}" method="POSt">
+                                @csrf
                             <input type="hidden" name="color_id" value="{{ $color->id }}">
-                            <input type="hidden" name="color" >
                             @php 
                             $colorcount = DB::table('products')->where('color_id', '=', $color->id)->count();
                             @endphp

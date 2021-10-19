@@ -10,14 +10,13 @@ use App\Models\Catigory;
 
 class ColorLiveWire extends Component
 {
-    public $color;
     public $color_id;
     public $sorting;
     public $pagesize;
     protected $listeners = ['refreshColor'=> '$refresh'];
 
     public function mount() {
-        $this->fill(request()->only('color', 'color_id'));
+        $this->fill(request()->only('color_id'));
         $this->sorting = 'defualt';
         $this->pagesize = 8;
 
@@ -25,7 +24,7 @@ class ColorLiveWire extends Component
     public function render()
     {
         $brands = Brand::paginate(5);
-        $cats = Catigory::get();
+        $cats = Catigory::paginate(5);
         $colors = Color::paginate(5);
          $pc =  Color::where('id', '=', $this->color_id )->first();   
 
