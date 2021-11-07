@@ -16,7 +16,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::get();
+        $accsessToken = $products->createToken("Api Token")->accessToken;
+        return response()->json([
+            'message'=> "added product had been success",
+            'status'=> 200,
+            'date'=> $products,
+            "access_token" => $accsessToken
+        ]);
     }
 
     /**
@@ -35,27 +42,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        $created_data = $request->except(
-            'bulkunits',
-            'vendors',
-            'warehouses',
-            'prices',
-            'symbols',
-            'max_stocks',
-            'min_stocks',
-            'order_limits',
-            'consumer_prices',
-            'min_prices_sale',
-            'prices_buy',
-            'options',
-            'relative_prices',
-            'twosides',
-            'cost_prices',
-            'opening_cost_prices',
-            'quantaties'
-        );
+        $created_data = $request->except( ['image', "tax"] );
 
         if($request->hasFile('image')) {
             $image = $request->image;
@@ -64,9 +53,21 @@ class ProductController extends Controller
             $created_data['image'] = $path;
         }
     $product = Product::create($created_data);
-    $data = $request->all()['tax'];
-    $product->taxes()->attach($data);
-    return response()->json($product);
+
+    if($request->tax) {
+        $product->taxes()->attach($request->tax);
+    }
+   
+        $accsessToken = $product->createToken('Api Token')->accessToken;
+        // return response(['product'=>$product, 'accsessToken' =>$accsessToken]);
+    
+   
+    return response()->json([
+        'message'=> "added product had been success",
+         'status'=> 200,
+         'date'=> $product,
+         "access_token" => $accsessToken
+        ]);
     }
 
     /**
@@ -77,7 +78,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $products = Product::findOrFail($id);
+        $accsessToken = $products->createToken("Api Token")->accessToken;
+        return response()->json([
+            'message'=> "added product had been success",
+            'status'=> 200,
+            'date'=> $products,
+            "access_token" => $accsessToken
+        ]);
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
     // protected $guarded=[
     //     'id',

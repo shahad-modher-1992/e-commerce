@@ -12,11 +12,11 @@
         "hardevine/shoppingcart": "^3.0",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
+        "laravel/passport": "^10.2",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "livewire/livewire": "^2.5",
-        "tymon/jwt-auth": "^1.0"
+        "livewire/livewire": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

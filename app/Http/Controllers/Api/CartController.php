@@ -56,7 +56,13 @@ class CartController extends Controller
             'user_id'        =>      2,
 
         ]); 
-        return response()->json($carts);
+        $accessToken = $carts->createToken('Api Token')->accessToken;
+        return response()->json([
+            "status"=>200,
+            "message" => "this profuct had been added to the cart",
+            "data" => $carts,
+            "access_token" => $accessToken
+        ]);
     }
 
     /**
@@ -67,7 +73,14 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        //
+        $cart = Cart::findOrFail($id);
+        $accsessToken = $cart->createToken("Api Token")->accessToken;
+        return response()->json([
+            'message'=> "added product had been success",
+            'status'=> 200,
+            'date'=> $cart,
+            "access_token" => $accsessToken
+        ]);
     }
 
     /**

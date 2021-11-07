@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 
+
 class OrderController extends Controller
 {
     /**
@@ -43,7 +44,15 @@ class OrderController extends Controller
          if ($request->carts) {
              $order->carts()->attach($request->carts);
          }
-        return response()->json($order);
+
+
+         $accessToken = $order->createToken('Api Token')->accessToken;
+        return response()->json([
+            'status' => 200,
+            'message'=> "this order had been added",
+            'data' => $order,
+            'access_token' => $accessToken
+        ]);
     }
 
     /**
@@ -54,7 +63,14 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $accsessToken = $order->createToken("Api Token")->accessToken;
+        return response()->json([
+            'message'=> "added product had been success",
+            'status'=> 200,
+            'date'=> $order,
+            "access_token" => $accsessToken
+        ]);
     }
 
     /**

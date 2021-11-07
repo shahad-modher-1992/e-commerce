@@ -43,7 +43,16 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         $user = User::create($request->all()); 
-        return response()->json($user);
+        
+            $accsessToken = $user->createToken('Api Token')->accessToken;
+            return response()->json([
+                'message'=> 'added user had been success',
+                'status'=> 200,
+                'data'=>$user ,
+                'accsessToken' => $accsessToken
+                ]);
+        
+        // return response()->json($user);
     }
 
     /**
@@ -54,7 +63,14 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = user::findOrFail($id);
+        $accsessToken = $user->createToken("Api Token")->accessToken;
+        return response()->json([
+            'message'=> "added product had been success",
+            'status'=> 200,
+            'date'=> $user,
+            "access_token" => $accsessToken
+        ]);
     }
 
     /**
@@ -97,13 +113,12 @@ class AuthController extends Controller
         $credential = $request->only(['email', 'password']);
         $token = Auth::attempt($credential);
 
-      if(!$token) {
-          return "this is not right data ";
-      }else {
-
-        $login = Auth::user();
-        $login->api_token = $token;
-      return $this->respondWithToken($token);
-      }
+   $accsessToken = auth()->user()->createToken('Api Token')->accessToken;
+   return response()->json([
+       "status" => 200,
+       "message"=> "your credential is done",
+       "token"=> $token,
+       "access_token" => $accsessToken
+    ]);
     }
 }
